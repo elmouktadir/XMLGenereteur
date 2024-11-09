@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.02">
+    <FIToFICstmrCdtTrf>
+        <GrpHdr>
+            <MsgId>INT001</MsgId>
+            <CreDtTm>2024-11-07T10:15:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+        </GrpHdr>
+        <CdtTrfTxInf>
+            <PmtId>
+                <InstrId>INT20241107001</InstrId>
+                <EndToEndId>E2EINT001</EndToEndId>
+            </PmtId>
+            <Amt>
+                <InstdAmt Ccy="MAD">1000</InstdAmt>
+            </Amt>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>MA6400000000000000000000000</IBAN>
+                </Id>
+            </CdtrAcct>
+            <DbtrAcct>
+                <Id>
+                    <IBAN>MA6400000000000000000000000</IBAN>
+                </Id>
+            </DbtrAcct>
+        </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+</Document>
