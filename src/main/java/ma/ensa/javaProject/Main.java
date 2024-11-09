@@ -9,8 +9,9 @@ public class Main {
     public static void main(String[] args) {
 
 //        XMLTransactionInter xml = new XMLTransaction();
-//        //xml.XMLSameBankCountryTran();
+////        //xml.XMLSameBankCountryTran();
 //        xml.XMLDeffBankSameCountryTran();
-//        xml.XMLDeffBankCountryTran();
+////        xml.XMLDeffBankCountryTran();
+//        xml.XMLSameBankDeffCountryTran();
     }
 }

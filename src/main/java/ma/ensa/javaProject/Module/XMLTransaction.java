@@ -505,7 +505,7 @@ public class XMLTransaction implements XMLTransactionInter{
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File("transaction_DBSC.xml"));
+            StreamResult streamResult = new StreamResult(new File("transaction_SBDC.xml"));
 
             transformer.transform(domSource,streamResult);
 
