@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.net.PasswordAuthentication;
 
 public class XMLTransaction implements XMLTransactionInter{
     @Override
@@ -520,6 +521,190 @@ public class XMLTransaction implements XMLTransactionInter{
 
     @Override
     public void XMLMultiTran() {
+
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+           // Creer l'element racine
+           Element root = document.createElementNS("urn:iso:std:iso:20022:tech:xsd:pain.001.001.03","Document");
+           document.appendChild(root);
+
+           // creer l element CstmrCdtTrfInitn dans la balise Document
+            Element CstmrCdtTrfInitn = document.createElement("CstmrCdtTrfInitn");
+            root.appendChild(CstmrCdtTrfInitn);
+
+            // creer element GrpHdr
+            Element GrpHdr = document.createElement("GrpHdr");
+            CstmrCdtTrfInitn.appendChild(GrpHdr);
+
+            // creer element MsgId dans le GrpHdr
+            Element MsgId = document.createElement("MsgId");
+            MsgId.appendChild(document.createTextNode("MULTI001"));
+            GrpHdr.appendChild(MsgId);
+
+            // creer element CreDtTm dans GrpHdr
+            Element CreDtTm = document.createElement("CreDtTm");
+            CreDtTm.appendChild(document.createTextNode(""));
+            GrpHdr.appendChild(CreDtTm);
+
+            // creer element NbOfTxs dans GrpHdr
+            Element NbOfTxs = document.createElement("NbOfTxs");
+            NbOfTxs.appendChild(document.createTextNode(""));
+            GrpHdr.appendChild(NbOfTxs);
+
+            // creer element CtrlSum dans GrpHdr
+            Element CtrlSum = document.createElement("CtrlSum");
+            CtrlSum.appendChild(document.createTextNode(""));
+            GrpHdr.appendChild(CtrlSum);
+
+            // creer element InitgPty dans GrpHdr
+            Element InitgPty = document.createElement("InitgPty");
+            GrpHdr.appendChild(InitgPty);
+
+            // creer element Nm dans InitgPty
+            Element Nm = document.createElement("Nm");
+            GrpHdr.appendChild(Nm);
+
+            for (int i = 0; i < 3 ; i++) {
+
+                // creer element PmtInf dans CstmrCdtTrfInitn
+                Element PmtInf = document.createElement("PmtInf");
+                CstmrCdtTrfInitn.appendChild(PmtInf);
+
+                // creer element PmtInfId dans PmtInf
+                Element PmtInfId = document.createElement("PmtInfId");
+                PmtInfId.appendChild(document.createTextNode(""));
+                PmtInf.appendChild(PmtInfId);
+
+                // creer element PmtMtd dans PmtInf
+                Element PmtMtd = document.createElement("PmtMtd");
+                PmtMtd.appendChild(document.createTextNode(""));
+                PmtInf.appendChild(PmtMtd);
+
+                // creer element ReqdExctnDt dans PmtInf
+                Element ReqdExctnDt = document.createElement("ReqdExctnDt");
+                ReqdExctnDt.appendChild(document.createTextNode(""));
+                PmtInf.appendChild(ReqdExctnDt);
+
+                // creer element Dbtr dans PmtInf
+                Element Dbtr = document.createElement("Dbtr");
+                PmtInf.appendChild(Dbtr);
+
+                // creer Nm dans Dbtr
+                Element NmDbtr = document.createElement("Nm");
+                NmDbtr.appendChild(document.createTextNode(""));
+                Dbtr.appendChild(NmDbtr);
+
+                //element DbtrAcct dans PmtInf
+                Element DbtrAcct = document.createElement("DbtrAcct");
+                PmtInf.appendChild(DbtrAcct);
+
+                //creer element id de la debiteur
+                Element idDbtr = document.createElement("Id");
+                DbtrAcct.appendChild(idDbtr);
+
+                //creer element IBAN dans id
+                Element IBANDbtr = document.createElement("IBAN");
+                IBANDbtr.appendChild(document.createTextNode(""));
+                idDbtr.appendChild(IBANDbtr);
+
+                // creer element DbtrAgt dans PmtInf
+                Element DbtrAgt = document.createElement("DbtrAgt");
+                PmtInf.appendChild(DbtrAgt);
+
+                // creer element FinInstnIdDbtr dans DbtrAgt
+                Element FinInstnIdDbtr = document.createElement("FinInstnId");
+                DbtrAgt.appendChild(FinInstnIdDbtr);
+
+                //creer BIC dans FinInstnIdDbtr
+                Element BICDbtr = document.createElement("BIC");
+                BICDbtr.appendChild(document.createTextNode(""));
+                FinInstnIdDbtr.appendChild(BICDbtr);
+
+                // le 1 er benefice
+
+                // creer element CdtTrfTxInf dans PmtInf
+                Element CdtTrfTxInf = document.createElement("CdtTrfTxInf");
+                PmtInf.appendChild(CdtTrfTxInf);
+
+                // creer element PmtId dans CdtTrfTxInf
+                Element PmtId = document.createElement("PmtId");
+                CdtTrfTxInf.appendChild(PmtId);
+
+                // creer element InstrId dans PmtId
+                Element InstrId = document.createElement("InstrId");
+                InstrId.appendChild(document.createTextNode(""));
+                PmtId.appendChild(InstrId);
+
+                // creer element EndToEndId dans PmtId
+                Element EndToEndId = document.createElement("EndToEndId");
+                EndToEndId.appendChild(document.createTextNode(""));
+                PmtId.appendChild(EndToEndId);
+
+
+                // creer element Amt dans CdtTrfTxInf
+                Element Amt = document.createElement("Amt");
+                CdtTrfTxInf.appendChild(Amt);
+
+                //creer element CdtrAgt dans Amt
+                Element InstdAmt = document.createElement("InstdAmt");
+                InstdAmt.setAttribute("Ccy", "EUR");
+                InstdAmt.appendChild(document.createTextNode("1000"));
+                Amt.appendChild(InstdAmt);
+
+                // creer CdtrAgt dans CdtTrfTxInf
+                Element CdtrAgt = document.createElement("CdtrAgt");
+                CdtTrfTxInf.appendChild(CdtrAgt);
+
+                // creer FinInstnId dans CdtrAgt
+                Element FinInstnIdCdtr = document.createElement("FinInstnId");
+                CdtrAgt.appendChild(FinInstnIdDbtr);
+
+                // creer BIC dans FinInstnId
+                Element BICCdtr = document.createElement("BIC");
+                BICCdtr.appendChild(document.createTextNode(""));
+                FinInstnIdDbtr.appendChild(BICCdtr);
+
+                //creer Cdtr dans CdtTrfTxInf
+                Element Cdtr = document.createElement("Cdtr");
+                CdtTrfTxInf.appendChild(Cdtr);
+
+                //crer Nm dans Cdtr
+                Element NmCdrt = document.createElement("Nm");
+                NmCdrt.appendChild(document.createTextNode(""));
+                Cdtr.appendChild(Nm);
+
+                // creer CdtrAcct dans CdtTrfTxInf
+                Element CdtrAcct = document.createElement("CdtrAcct");
+                CdtTrfTxInf.appendChild(CdtrAcct);
+
+                // creer Id dans CdtrAcct
+                Element IdCrdt = document.createElement("Id");
+                CdtrAcct.appendChild(IdCrdt);
+
+                // creer IBAN dans Id
+                Element IBANCrdt = document.createElement("IBAN");
+                IBANCrdt.appendChild(document.createTextNode(""));
+                IdCrdt.appendChild(IBANCrdt);
+
+            }
+
+
+            // Transformer le document DOM en un fichier XML
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File("transaction_Multi.xml"));
+
+            transformer.transform(domSource,streamResult);
+
+            System.out.println("le fichier XML générer par succes.");
+
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
 
     }
 }
