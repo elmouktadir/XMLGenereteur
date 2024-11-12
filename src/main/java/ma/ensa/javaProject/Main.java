@@ -14,5 +14,10 @@ public class Main {
 ////        xml.XMLDeffBankCountryTran();
 //        xml.XMLSameBankDeffCountryTran();
 //        xml.XMLMultiTran();
+        String Nom = "ID123443";
+        String numeroCIN = Nom.substring(2,Nom.length());
+        System.out.println(numeroCIN);
+        String inverseNom = new StringBuilder(Nom).reverse().toString();
+        System.out.println(inverseNom);
     }
 }
