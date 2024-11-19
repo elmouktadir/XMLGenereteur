@@ -15,6 +15,14 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.net.PasswordAuthentication;
 
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+
+
+
 public class XMLTransaction implements XMLTransactionInter{
     @Override
     public void XMLSameBankCountryTran() {
@@ -121,6 +129,8 @@ public class XMLTransaction implements XMLTransactionInter{
         } catch (ParserConfigurationException | TransformerException e){
             e.printStackTrace();
         }
+
+
 
     }
 
@@ -565,6 +575,7 @@ public class XMLTransaction implements XMLTransactionInter{
 
             // creer element Nm dans InitgPty
             Element Nm = document.createElement("Nm");
+            Nm.appendChild(document.createTextNode("Entreprise X"));
             GrpHdr.appendChild(Nm);
 
             for (int i = 0; i < 3 ; i++) {
@@ -651,6 +662,7 @@ public class XMLTransaction implements XMLTransactionInter{
                 //creer element CdtrAgt dans Amt
                 Element InstdAmt = document.createElement("InstdAmt");
                 InstdAmt.setAttribute("Ccy", "EUR");
+                //cette montant il doit etre variable dans virement multiple
                 InstdAmt.appendChild(document.createTextNode("1000"));
                 Amt.appendChild(InstdAmt);
 
@@ -697,6 +709,193 @@ public class XMLTransaction implements XMLTransactionInter{
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File("transaction_Multi.xml"));
+
+            transformer.transform(domSource,streamResult);
+
+            System.out.println("le fichier XML générer par succes.");
+
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void XMLMassetran(){
+
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            // Creer l'element racine
+            Element root = document.createElementNS("urn:iso:std:iso:20022:tech:xsd:pain.001.001.03","Document");
+            document.appendChild(root);
+
+            // creer l element CstmrCdtTrfInitn dans la balise Document
+            Element CstmrCdtTrfInitn = document.createElement("CstmrCdtTrfInitn");
+            root.appendChild(CstmrCdtTrfInitn);
+
+            // creer element GrpHdr dans CstmrCdtTrfInitn
+            Element GrpHdr = document.createElement("GrpHdr");
+            CstmrCdtTrfInitn.appendChild(GrpHdr);
+
+            // creer element MsgId dans le GrpHdr
+            Element MsgId = document.createElement("MsgId");
+            MsgId.appendChild(document.createTextNode("MULTI001"));
+            GrpHdr.appendChild(MsgId);
+
+            // creer element CreDtTm dans GrpHdr
+            Element CreDtTm = document.createElement("CreDtTm");
+            CreDtTm.appendChild(document.createTextNode("2024-11-13T12:00:00"));
+            GrpHdr.appendChild(CreDtTm);
+
+            // creer element NbOfTxs dans GrpHdr
+            Element NbOfTxs = document.createElement("NbOfTxs");
+            NbOfTxs.appendChild(document.createTextNode("3"));
+            GrpHdr.appendChild(NbOfTxs);
+
+            // creer element CtrlSum dans GrpHdr
+            Element CtrlSum = document.createElement("CtrlSum");
+            CtrlSum.appendChild(document.createTextNode("1500.00"));
+            GrpHdr.appendChild(CtrlSum);
+
+            // creer element InitgPty dans GrpHdr
+            Element InitgPty = document.createElement("InitgPty");
+            GrpHdr.appendChild(InitgPty);
+
+            // creer element Nm dans InitgPty
+            Element Nm = document.createElement("Nm");
+            Nm.appendChild(document.createTextNode("Entreprise X"));
+            GrpHdr.appendChild(Nm);
+
+            Element PmtInf = document.createElement("PmtInf");
+            CstmrCdtTrfInitn.appendChild(PmtInf);
+
+            Element PmtInfId =  document.createElement("PmtInfId");
+            PmtInfId.appendChild(document.createTextNode("PAY123456789"));
+            PmtInf.appendChild(PmtInfId);
+
+            Element PmtMtd = document.createElement("PmtMtd");
+            PmtMtd.appendChild(document.createTextNode("TRF"));
+            PmtInf.appendChild(PmtMtd);
+
+            Element GrpHdrNbOfTxs = document.createElement("NbOfTxs");
+            GrpHdrNbOfTxs.appendChild(document.createTextNode("3"));
+            PmtInf.appendChild(GrpHdrNbOfTxs);
+
+            Element GrpHdrCtrlSum = document.createElement("CtrlSum");
+            GrpHdrCtrlSum.appendChild(document.createTextNode("1500.00"));
+            PmtInf.appendChild(GrpHdrCtrlSum);
+
+            Element PmtTpInf = document.createElement("PmtTpInf");
+            PmtInf.appendChild(PmtTpInf);
+
+            Element SvcLvl = document.createElement("SvcLvl");
+            PmtTpInf.appendChild(SvcLvl);
+
+            Element Cd = document.createElement("Cd");
+            Cd.appendChild(document.createTextNode("SEPA"));
+            SvcLvl.appendChild(Cd);
+
+            Element ReqdExctnDt = document.createElement("ReqdExctnDt");
+            ReqdExctnDt.appendChild(document.createTextNode("2024-11-14"));
+            PmtInf.appendChild(ReqdExctnDt);
+
+            Element Dbtr = document.createElement("Dbtr");
+            PmtInf.appendChild(Dbtr);
+
+            Element DbtrNm = document.createElement("Nm");
+            DbtrNm.appendChild(document.createTextNode("Entreprise X"));
+            Dbtr.appendChild(Nm);
+
+            Element PstlAdr = document.createElement("PstlAdr");
+            Dbtr.appendChild(PstlAdr);
+
+            Element Ctry = document.createElement("Ctry");
+            Ctry.appendChild(document.createTextNode("FR"));
+            PstlAdr.appendChild(Ctry);
+
+            Element AdrLine = document.createElement("AdrLine");
+            AdrLine.appendChild(document.createTextNode("1 rue de l'Entreprise"));
+            PstlAdr.appendChild(AdrLine);
+
+            Element DbtrAcct = document.createElement("DbtrAcct");
+            PmtInf.appendChild(DbtrAcct);
+
+            Element DbtrId = document.createElement("Id");
+            DbtrAcct.appendChild(DbtrId);
+
+            Element DbtrIBAN = document.createElement("IBAN");
+            DbtrIBAN.appendChild(document.createTextNode("FR7612345678901234567890123"));
+            DbtrId.appendChild(DbtrIBAN);
+
+            Element DbtrAgt =  document.createElement("DbtrAgt");
+            PmtInf.appendChild(DbtrAgt);
+
+            Element DbtrFinInstnId = document.createElement("FinInstnId");
+            DbtrAgt.appendChild(DbtrFinInstnId);
+
+            Element DbtrBIC = document.createElement("BIC");
+            DbtrBIC.appendChild(document.createTextNode("BNPAFRPPXXX"));
+            DbtrFinInstnId.appendChild(DbtrBIC);
+
+
+            for (int i = 0; i < 3 ; i++) {
+
+                Element CdtTrfTxInf = document.createElement("CdtTrfTxInf");
+                PmtInf.appendChild(CdtTrfTxInf);
+
+                Element PmtId =  document.createElement("PmtId");
+                CdtTrfTxInf.appendChild(PmtId);
+
+                Element EndToEndId = document.createElement("EndToEndId");
+                EndToEndId.appendChild(document.createTextNode("TXN00"+i));
+                PmtId.appendChild(EndToEndId);
+
+                Element Amt = document.createElement("Amt");
+                CdtTrfTxInf.appendChild(Amt);
+
+                Element InstdAmt = document.createElement("InstdAmt");
+                InstdAmt.setAttribute("Ccy","EUR");
+                InstdAmt.appendChild(document.createTextNode("500.00"));
+                Amt.appendChild(InstdAmt);
+
+                Element Cdtr = document.createElement("Cdtr");
+                CdtTrfTxInf.appendChild(Cdtr);
+
+                Element CdtrNm = document.createElement("Nm");
+                CdtrNm.appendChild(document.createTextNode("Beneficiaire "+i));
+                Cdtr.appendChild(CdtrNm);
+
+                Element CdtrAcct = document.createElement("CdtrAcct");
+                CdtTrfTxInf.appendChild(CdtrAcct);
+
+                Element CdtrId = document.createElement("Id");
+                CdtrAcct.appendChild(CdtrId);
+
+                Element CdtrIBAN =  document.createElement("IBAN");
+                CdtrIBAN.appendChild(document.createTextNode("FR7612345678901234567890124"));
+                CdtrId.appendChild(CdtrIBAN);
+
+                Element CdtrAgt = document.createElement("CdtrAgt");
+                CdtTrfTxInf.appendChild(CdtrAgt);
+
+                Element CdtrFinInstnId = document.createElement("FinInstnId");
+                CdtrAgt.appendChild(CdtrFinInstnId);
+
+                Element CdtrBIC = document.createElement("BIC");
+                CdtrBIC.appendChild(document.createTextNode("BNPAFRPPXXX"));
+                CdtrFinInstnId.appendChild(CdtrBIC);
+
+            }
+
+
+            // Transformer le document DOM en un fichier XML
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File("transaction_Masse.xml"));
 
             transformer.transform(domSource,streamResult);
 

@@ -1,8 +1,11 @@
 package ma.ensa.javaProject.Module;
 
+import com.sun.istack.NotNull;
+import ma.ensa.javaProject.DAO.ClientImpl;
+
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.Date;
-
+//jloi qwff pobv lkuc
 public class Client {
     private String Nom ;
     private String Prenom ;
@@ -13,6 +16,7 @@ public class Client {
     private String NumMobile;
     private String email;
     private  String IdUtilisateur; // final ?
+
 
     public Client() {}
 
@@ -101,6 +105,11 @@ public class Client {
         IdUtilisateur = idUtilisateur;
     }
 
+    public static ClientBuilder build(){
+        return new ClientBuilder();
+    }
+
+
     private String IdUser(){
 
         String codeCIN = this.CIN.substring(0,2);
@@ -109,5 +118,24 @@ public class Client {
 
         return this.Nom.substring(0,2) + CINNumInverse + codeCIN;
     }
+
+    public static boolean isPhoneNumber(String PhoneNumber){
+        String regex = "^\\+[0-9]{10,15}$";
+        return PhoneNumber.matches(regex);
+    }
+
+    public static boolean isValideEmail(String email){
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(regex);
+    }
+
+    public static boolean authentificationById(String id){
+        ClientImpl clientImp = new ClientImpl();
+        if ( id.equals(clientImp.findById(id).getIdUtilisateur()) ){
+            return true;
+        }
+        return false;
+    }
+
 
 }

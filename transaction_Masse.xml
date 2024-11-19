@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03">
+    <CstmrCdtTrfInitn>
+        <GrpHdr>
+            <MsgId>MULTI001</MsgId>
+            <CreDtTm>2024-11-13T12:00:00</CreDtTm>
+            <NbOfTxs>3</NbOfTxs>
+            <CtrlSum>1500.00</CtrlSum>
+            <InitgPty/>
+        </GrpHdr>
+        <PmtInf>
+            <PmtInfId>PAY123456789</PmtInfId>
+            <PmtMtd>TRF</PmtMtd>
+            <NbOfTxs>3</NbOfTxs>
+            <CtrlSum>1500.00</CtrlSum>
+            <PmtTpInf>
+                <SvcLvl>
+                    <Cd>SEPA</Cd>
+                </SvcLvl>
+            </PmtTpInf>
+            <ReqdExctnDt>2024-11-14</ReqdExctnDt>
+            <Dbtr>
+                <Nm>Entreprise X</Nm>
+                <PstlAdr>
+                    <Ctry>FR</Ctry>
+                    <AdrLine>1 rue de l'Entreprise</AdrLine>
+                </PstlAdr>
+            </Dbtr>
+            <DbtrAcct>
+                <Id>
+                    <IBAN>FR7612345678901234567890123</IBAN>
+                </Id>
+            </DbtrAcct>
+            <DbtrAgt>
+                <FinInstnId>
+                    <BIC>BNPAFRPPXXX</BIC>
+                </FinInstnId>
+            </DbtrAgt>
+            <CdtTrfTxInf>
+                <PmtId>
+                    <EndToEndId>TXN000</EndToEndId>
+                </PmtId>
+                <Amt>
+                    <InstdAmt Ccy="EUR">500.00</InstdAmt>
+                </Amt>
+                <Cdtr>
+                    <Nm>Beneficiaire 0</Nm>
+                </Cdtr><CdtrAcct><Id><IBAN>FR7612345678901234567890124</IBAN></Id></CdtrAcct><CdtrAgt><FinInstnId><BIC>BNPAFRPPXXX</BIC></FinInstnId></CdtrAgt></CdtTrfTxInf><CdtTrfTxInf><PmtId><EndToEndId>TXN001</EndToEndId></PmtId><Amt><InstdAmt Ccy="EUR">500.00</InstdAmt></Amt><Cdtr><Nm>Beneficiaire 1</Nm></Cdtr><CdtrAcct><Id><IBAN>FR7612345678901234567890124</IBAN></Id></CdtrAcct><CdtrAgt><FinInstnId><BIC>BNPAFRPPXXX</BIC></FinInstnId></CdtrAgt></CdtTrfTxInf><CdtTrfTxInf><PmtId><EndToEndId>TXN002</EndToEndId></PmtId><Amt><InstdAmt Ccy="EUR">500.00</InstdAmt></Amt><Cdtr><Nm>Beneficiaire 2</Nm></Cdtr><CdtrAcct><Id><IBAN>FR7612345678901234567890124</IBAN></Id></CdtrAcct><CdtrAgt><FinInstnId><BIC>BNPAFRPPXXX</BIC></FinInstnId></CdtrAgt></CdtTrfTxInf></PmtInf></CstmrCdtTrfInitn></Document>

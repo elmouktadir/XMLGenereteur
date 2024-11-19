@@ -13,7 +13,7 @@ public class DBConnection {
 
     private static Connection connection;
 
-    public Connection getConnection(){
+    public static Connection getConnection(){
         try {
             connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:%d/%s", HOST, PORT, DB_NAME), USERNAME, PASSWORD);
         } catch (SQLException e) {
@@ -22,7 +22,7 @@ public class DBConnection {
         return connection;
     }
 
-    public void close(){
+    public static void close(){
         try{
             connection.close();
         } catch (SQLException e) {

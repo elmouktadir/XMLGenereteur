@@ -7,6 +7,7 @@ public interface XMLTransactionInter {
     public void XMLDeffBankCountryTran();
     public void XMLSameBankDeffCountryTran();
     public void XMLMultiTran();
+    public void XMLMassetran();
 
 }
 
