@@ -13,19 +13,19 @@ public class Compte {
 
     //Constructeur
     public Compte(int id, String iban, double balance, Client client, Banque banque) {
-        this.id = id;
-        this.iban = iban;
-        this.balance = balance;
-        this.client = client;
-        this.banque = banque;
+        this.id         = id;
+        //this.id       = client.getIdUtilisateur();
+        this.iban       = iban;
+        this.balance    = balance;
+        this.client     = client;
+        this.banque     = banque;
     }
 
     //Constructeur ne contient pas le client et la banque
     public Compte(int id, String iban, double balance) {
-        this.id = id;
-        this.iban = iban;
-        this.balance = balance;
-
+        this.id         = id;
+        this.iban       = iban;
+        this.balance    = balance;
     }
 
     //Getter Setter

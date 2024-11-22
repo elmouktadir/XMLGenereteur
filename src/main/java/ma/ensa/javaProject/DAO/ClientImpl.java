@@ -31,6 +31,7 @@ public class ClientImpl implements ClientDAO{
                         .Addresse(resultSet.getString("addresse"))
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
+                        .Password(resultSet.getString("password"))
                         .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
                 clients.add(client);
             }
@@ -65,6 +66,7 @@ public class ClientImpl implements ClientDAO{
                         .Addresse(resultSet.getString("addresse"))
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
+                        .Password(resultSet.getString("password"))
                         .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
             }
 
@@ -102,8 +104,8 @@ public class ClientImpl implements ClientDAO{
         if (conn == null) {
             return;
         }
-        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,addresse,numMobile,email,idUtilisateur)" +
-                " VALUES (?,?,?,?,?,?,?,?,?);";
+        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,addresse,numMobile,email,password,idUtilisateur)" +
+                " VALUES (?,?,?,?,?,?,?,?,?,?);";
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
             preparedStatement.setString(1,client.getNom());
@@ -114,7 +116,8 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setString(6,client.getAddresse());
             preparedStatement.setString(7,client.getNumMobile());
             preparedStatement.setString(8,client.getEmail());
-            preparedStatement.setString(9,client.getIdUtilisateur());
+            preparedStatement.setString(9,client.getPassword());
+            preparedStatement.setString(10,client.getIdUtilisateur());
 
             preparedStatement.executeUpdate();
 
@@ -131,7 +134,7 @@ public class ClientImpl implements ClientDAO{
         if (conn == null) {
             return;
         }
-        String Query = "UPDATE client SET nom=?,prenom=?,dateNaissance=?,nationalite=?,CIN=?,addresse=?,numMobile=?,email=? WHERE idUtilisateur=?";
+        String Query = "UPDATE client SET nom=?,prenom=?,dateNaissance=?,nationalite=?,CIN=?,addresse=?,numMobile=?,email=?,password=? WHERE idUtilisateur=?";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
@@ -143,7 +146,8 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setString(6,client.getAddresse());
             preparedStatement.setString(7,client.getNumMobile());
             preparedStatement.setString(8,client.getEmail());
-            preparedStatement.setString(9,client.getIdUtilisateur());
+            preparedStatement.setString(9,client.getPassword());
+            preparedStatement.setString(10,client.getIdUtilisateur());
 
             preparedStatement.executeUpdate();
 

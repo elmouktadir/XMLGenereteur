@@ -23,9 +23,9 @@ public class Main {
 ////        System.out.println(inverseNom);
 //        xml.XMLMassetran();
 
-//        String phone = "utilisateur@exemple.extension";
-//        boolean valide = Client.isValideEmail(phone);
-//        System.out.println(valide);
+        String phone = "+212666070810";
+        boolean valide = Client.isPhoneNumber(phone);
+        System.out.println(valide);
 
 //        String mail = "m.elmouktadir@gmail.com";
 //        EmailSender.emailSender(mail);

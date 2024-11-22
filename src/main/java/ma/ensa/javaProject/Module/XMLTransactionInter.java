@@ -11,7 +11,6 @@ public interface XMLTransactionInter {
 
 }
 
-
 /*
 * Same Bank and Country ==> SBC
 * Deffirent Bank Same Country ==> DBSC

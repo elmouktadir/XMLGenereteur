@@ -11,6 +11,7 @@ public class ClientBuilder {
     private String Addresse;
     private String NumMobile;
     private String email;
+    private String password;
     private  String IdUtilisateur;
 
     public ClientBuilder(){}
@@ -54,6 +55,10 @@ public class ClientBuilder {
         this.email = email;
         return this;
     }
+    public ClientBuilder Password(String password){
+        this.password = password;
+        return this;
+    }
 
     public ClientBuilder IdUtilisateur(String IdUtilisateur){
         this.IdUtilisateur = IdUtilisateur;
@@ -61,7 +66,7 @@ public class ClientBuilder {
     }
 
     public Client build(){
-        return new Client(Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email);
+        return new Client(Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email,password);
     }
 
 

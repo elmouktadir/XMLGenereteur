@@ -15,21 +15,24 @@ public class Client {
     private String Addresse;
     private String NumMobile;
     private String email;
+    private String password;
     private  String IdUtilisateur; // final ?
 
 
     public Client() {}
 
-    public Client(String nom, String prenom, Date dateNaissance, String nationalite, String CIN, String addresse, String numMobile, String email) {
-        Nom = nom;
-        Prenom = prenom;
+    public Client(String nom, String prenom, Date dateNaissance, String nationalite,
+                  String CIN, String addresse, String numMobile, String email,String password) {
+        this.Nom = nom;
+        this.Prenom = prenom;
         this.dateNaissance = dateNaissance;
-        Nationalite = nationalite;
+        this.Nationalite = nationalite;
         this.CIN = CIN;
-        Addresse = addresse;
-        NumMobile = numMobile;
+        this.Addresse = addresse;
+        this.NumMobile = numMobile;
         this.email = email;
-        IdUtilisateur = IdUser();
+        this.password = password;
+        this.IdUtilisateur = IdUser();
 
     }
 
@@ -97,6 +100,14 @@ public class Client {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getIdUtilisateur() {
         return IdUtilisateur;
     }
@@ -129,9 +140,10 @@ public class Client {
         return email.matches(regex);
     }
 
-    public static boolean authentificationById(String id){
+    public static boolean authentification(String id, String password){
         ClientImpl clientImp = new ClientImpl();
-        if ( id.equals(clientImp.findById(id).getIdUtilisateur()) ){
+        Client currentClient = clientImp.findById(id);
+        if ( id.equals(currentClient.getIdUtilisateur()) && password.equals(currentClient.getPassword()) ){
             return true;
         }
         return false;
