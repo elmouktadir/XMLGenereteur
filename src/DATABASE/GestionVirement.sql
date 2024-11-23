@@ -9,6 +9,7 @@ CREATE TABLE banque (
     address VARCHAR(100) NOT NULL
 );
 
+
 -- Table Client
 CREATE TABLE client (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -16,6 +17,9 @@ CREATE TABLE client (
     prenom VARCHAR(50) NOT NULL,
     dateNaissance DATE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    CIN VARCHAR(100) NOT NULL UNIQUE,
+    address VARCHAR(100),
+    numMobile VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL
 );
 
