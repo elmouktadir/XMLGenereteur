@@ -7,6 +7,7 @@ import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.Date;
 //jloi qwff pobv lkuc
 public class Client {
+
     private String Nom ;
     private String Prenom ;
     private Date dateNaissance;

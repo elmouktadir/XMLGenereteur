@@ -24,7 +24,7 @@ public class CompteImpl implements CompteDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Compte compte = Compte.build().Id(resultSet.getInt("id"))
-                        .Iban(resultSet.getString("iban"))
+                        .Rib(resultSet.getString("rib"))
                         .Balance(resultSet.getDouble("balance"))
                         .build();
                 comptes.add(compte);
@@ -51,7 +51,7 @@ public class CompteImpl implements CompteDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return Compte.build().Id(resultSet.getInt("id"))
-                        .Iban(resultSet.getString("iban"))
+                        .Rib(resultSet.getString("iban"))
                         .Balance(resultSet.getDouble("balance"))
                         .build();
             }
@@ -76,7 +76,7 @@ public class CompteImpl implements CompteDAO{
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
             preparedStatement.setInt(1,compte.getId());
-            preparedStatement.setString(2,compte.getIban());
+            preparedStatement.setString(2,compte.getRib());
             preparedStatement.setDouble(3,compte.getBalance());
 
             preparedStatement.executeUpdate();
@@ -98,7 +98,7 @@ public class CompteImpl implements CompteDAO{
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
-            preparedStatement.setString(1,compte.getIban());
+            preparedStatement.setString(1,compte.getRib());
             preparedStatement.setDouble(2,compte.getBalance());
             preparedStatement.setInt(3,compte.getId());
 

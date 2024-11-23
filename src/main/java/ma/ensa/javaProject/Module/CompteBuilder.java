@@ -2,7 +2,7 @@ package ma.ensa.javaProject.Module;
 
 public class CompteBuilder {
     private int id;
-    private String  iban;
+    private String  rib;
     private double balance;
     private Client client;
     private Banque banque;
@@ -12,8 +12,8 @@ public class CompteBuilder {
         return this;
     }
 
-    public CompteBuilder Iban(String iban) {
-        this.iban = iban;
+    public CompteBuilder Rib(String rib) {
+        this.rib = rib;
         return this;
     }
 
@@ -33,7 +33,7 @@ public class CompteBuilder {
     }
 
     public Compte build(){
-        return new Compte(id,iban,balance);
+        return new Compte(id,rib,balance);
     }
 
 

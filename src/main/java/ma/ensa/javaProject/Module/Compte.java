@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Compte {
     private int id;
-    private String  iban;
+    private String  rib;
     private double balance;
     private Client client;
     private Banque banque;
@@ -12,19 +12,19 @@ public class Compte {
     public Compte(){}
 
     //Constructeur
-    public Compte(int id, String iban, double balance, Client client, Banque banque) {
+    public Compte(int id, String rib, double balance, Client client, Banque banque) {
         this.id         = id;
         //this.id       = client.getIdUtilisateur();
-        this.iban       = iban;
+        this.rib       = rib;
         this.balance    = balance;
         this.client     = client;
         this.banque     = banque;
     }
 
     //Constructeur ne contient pas le client et la banque
-    public Compte(int id, String iban, double balance) {
+    public Compte(int id, String rib, double balance) {
         this.id         = id;
-        this.iban       = iban;
+        this.rib       = rib;
         this.balance    = balance;
     }
 
@@ -38,12 +38,12 @@ public class Compte {
         this.id = id;
     }
 
-    public String getIban() {
-        return iban;
+    public String getRib() {
+        return rib;
     }
 
-    public void setIban(String iban) {
-        this.iban = iban;
+    public void setIban(String rib) {
+        this.rib = rib;
     }
 
     public double getBalance() {
@@ -74,7 +74,7 @@ public class Compte {
     public String toString() {
         return "Compte{" +
                 "id=" + id +
-                ", iban='" + iban + '\'' +
+                ", RIB='" + rib + '\'' +
                 ", balance='" + balance + '\'' +
                 ", client=" + client +
                 ", banque=" + banque +
@@ -104,7 +104,7 @@ public class Compte {
         if (amount>0 && amount<=this.getBalance()) {
             this.withDraw(amount);
             compteRecu.deposit(amount);
-            System.out.println("Virement effectue de "+amount+" à "+compteRecu.getIban());
+            System.out.println("Virement effectue de "+amount+" à "+compteRecu.getRib());
         }else {
             System.out.println("Virement echoue. Fonds insuffisants ou montant invalide");
         }
