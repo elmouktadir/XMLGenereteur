@@ -37,7 +37,7 @@ public class BeneficiaireImpl implements BeneficiaireDAO{
     }
 
     @Override
-    public Beneficiaire select(String rib) {
+    public Beneficiaire selectByRib(String rib) {
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             return null;
