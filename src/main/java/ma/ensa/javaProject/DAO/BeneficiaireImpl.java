@@ -37,6 +37,34 @@ public class BeneficiaireImpl implements BeneficiaireDAO{
     }
 
     @Override
+    public Beneficiaire select(String rib) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return null;
+        }
+
+        String Query = "SELECT * FROM beneficiaire WHERE rib=?;";
+        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+
+            preparedStatement.setString(1,rib);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return Beneficiaire.build()
+                        .NumCompte(resultSet.getString("numCompte"))
+                        .Nom(resultSet.getString("nom"))
+                        .Prenom(resultSet.getString("prenom"))
+                        .build();
+            }
+
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally{
+            DBConnection.close();
+        }
+        return null;
+    }
+
+    @Override
     public void save(Beneficiaire beneficiaire) {
 
         Connection conn = DBConnection.getConnection();
@@ -55,5 +83,47 @@ public class BeneficiaireImpl implements BeneficiaireDAO{
         }finally{
             DBConnection.close();
         }
+    }
+
+    @Override
+    public void update(Beneficiaire beneficiaire) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return;
+        }
+        String Query = "UPDATE SET beneficiaire nom=?,prenom=? WHERE numCompte=?;";
+        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+            preparedStatement.setString(1,beneficiaire.getNom());
+            preparedStatement.setString(2,beneficiaire.getPrenom());
+            preparedStatement.setString(3,beneficiaire.getNumCompte());
+
+            preparedStatement.executeUpdate();
+
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally{
+            DBConnection.close();
+        }
+    }
+
+    @Override
+    public void delete(String rib) {
+
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return;
+        }
+
+        String Query = "DELETE FROM beneficiaire WHERE numCompte=?;";
+
+        try (PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+            preparedStatement.setString(1,rib);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBConnection.close();
+        }
+
     }
 }

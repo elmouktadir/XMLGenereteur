@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface BeneficiaireDAO {
     public List<Beneficiaire> selectAll();
+    public Beneficiaire select(String rib);
     public void save(Beneficiaire beneficiaire);
+    public void update(Beneficiaire beneficiaire);
+    public void delete(String rib);
 }
