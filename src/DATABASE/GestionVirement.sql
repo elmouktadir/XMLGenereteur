@@ -38,7 +38,7 @@ CREATE TABLE beneficiaire (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
-    rib VARCHAR(24), -- RIB si le bénéficiaire a un compte
+    rib VARCHAR(24) NOT NULL, -- RIB si le bénéficiaire a un compte
     FOREIGN KEY (rib) REFERENCES compte(rib)
 );
 

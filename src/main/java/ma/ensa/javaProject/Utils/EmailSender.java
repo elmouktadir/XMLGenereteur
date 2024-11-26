@@ -7,18 +7,19 @@ import java.util.Properties;
 
 public class EmailSender {
     private static final String host = "smtp.gmail.com";
-    private static final String username = "sending0810@gmail.com";
-    private static final String password = "jloiqwffpobvlkuc";
+    private static final String username = "elmouktadirmohamed@gmail.com";
+    private static final String password = "xbbmdisdjsdeblvn";
 
     public static void emailSender(String DestinataireMail){
 
-        System.setProperty("https.protocols", "TLSv1.2");
+        //System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 
         Properties properties = new Properties();
-        properties.put("mail.smtp.auth","true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host",host);
-        properties.put("mail.smtp.port","587");
+
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.ssl.enable", "true"); // Use SSL
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -34,7 +35,7 @@ public class EmailSender {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(DestinataireMail) // Destinataire(s)
             );
 
-            message.setSubject("sujet de email");
+            message.setSubject("sujet de email de test");
             message.setText("Bonjour les amis j'envoie un mail à moi meme hhhhh.");
 
             System.out.println("Sending...");

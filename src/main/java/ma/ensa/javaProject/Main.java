@@ -1,8 +1,5 @@
 package ma.ensa.javaProject;
 
-import ma.ensa.javaProject.Module.Client;
-import ma.ensa.javaProject.Module.XMLTransaction;
-import ma.ensa.javaProject.Module.XMLTransactionInter;
 import ma.ensa.javaProject.Utils.EmailSender;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -23,11 +20,11 @@ public class Main {
 ////        System.out.println(inverseNom);
 //        xml.XMLMassetran();
 
-        String phone = "+212666070810";
-        boolean valide = Client.isPhoneNumber(phone);
-        System.out.println(valide);
+//        String phone = "+212666070810";
+//        boolean valide = Client.isPhoneNumber(phone);
+//        System.out.println(valide);
 
-//        String mail = "m.elmouktadir@gmail.com";
-//        EmailSender.emailSender(mail);
+        String mail = "m.elmouktadir@gmail.com";
+        EmailSender.emailSender(mail);
     }
 }
