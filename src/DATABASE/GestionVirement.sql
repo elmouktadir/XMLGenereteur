@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS GestionVirement;
+
 USE GestionVirement;
 
 -- Table Banque
@@ -26,6 +27,7 @@ CREATE TABLE client (
 -- Table Compte
 CREATE TABLE compte (
     rib VARCHAR(24) PRIMARY KEY,
+    swiftCode VARCHAR(6) NOT NULL,
     balance DOUBLE(15, 2) NOT NULL DEFAULT 0,
     idClient INT NOT NULL,
     idBanque INT NOT NULL,

@@ -4,7 +4,10 @@ import com.sun.istack.NotNull;
 import ma.ensa.javaProject.DAO.ClientImpl;
 
 import javax.rmi.ssl.SslRMIClientSocketFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 //jloi qwff pobv lkuc
 public class Client {
 
@@ -17,7 +20,9 @@ public class Client {
     private String NumMobile;
     private String email;
     private String password;
+    private int id;
     private  String IdUtilisateur; // final ?
+    private List<Compte> comptes;
 
 
     public Client() {}
@@ -34,8 +39,28 @@ public class Client {
         this.email = email;
         this.password = password;
         this.IdUtilisateur = IdUser();
-
+        this.comptes = new ArrayList<>();
     }
+
+    public Client(int id ,String nom, String prenom, Date dateNaissance, String nationalite,
+                  String CIN, String addresse, String numMobile, String email,String password,String idUtilisateur) {
+        this.id = id;
+        this.Nom = nom;
+        this.Prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.Nationalite = nationalite;
+        this.CIN = CIN;
+        this.Addresse = addresse;
+        this.NumMobile = numMobile;
+        this.email = email;
+        this.password = password;
+        this.IdUtilisateur = idUtilisateur;
+        this.comptes = new ArrayList<>();
+    }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getNom() {
         return Nom;
@@ -141,10 +166,10 @@ public class Client {
         return email.matches(regex);
     }
 
-    public static boolean authentification(String id, String password){
+    public static boolean authentification(String idUser, String password){
         ClientImpl clientImp = new ClientImpl();
-        Client currentClient = clientImp.findById(id);
-        if ( id.equals(currentClient.getIdUtilisateur()) && password.equals(currentClient.getPassword()) ){
+        Client currentClient = clientImp.findById(idUser);
+        if ( idUser.equals(currentClient.getId()) && password.equals(currentClient.getPassword()) ){
             return true;
         }
         return false;

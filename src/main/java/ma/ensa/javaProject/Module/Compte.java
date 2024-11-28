@@ -21,6 +21,15 @@ public class Compte {
         this.banque     = banque;
     }
 
+    //constructeur sans id
+    public Compte(String rib, double balance, Client client, Banque banque) {
+        //this.id       = client.getIdUtilisateur();
+        this.rib       = rib;
+        this.balance    = balance;
+        this.client     = client;
+        this.banque     = banque;
+    }
+
     //Constructeur ne contient pas le client et la banque
     public Compte(int id, String rib, double balance) {
         this.id         = id;

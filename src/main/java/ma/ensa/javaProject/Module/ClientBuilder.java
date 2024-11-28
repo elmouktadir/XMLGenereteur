@@ -3,6 +3,7 @@ package ma.ensa.javaProject.Module;
 import java.util.Date;
 
 public class ClientBuilder {
+    private int id;
     private String Nom ;
     private String Prenom ;
     private Date dateNaissance;
@@ -15,6 +16,11 @@ public class ClientBuilder {
     private  String IdUtilisateur;
 
     public ClientBuilder(){}
+
+    public ClientBuilder Id(int id){
+        this.id = id;
+        return this;
+    }
 
     public ClientBuilder Nom(String Nom){
         this.Nom = Nom;
@@ -66,7 +72,7 @@ public class ClientBuilder {
     }
 
     public Client build(){
-        return new Client(Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email,password);
+        return new Client(id,Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email,password,IdUtilisateur);
     }
 
 

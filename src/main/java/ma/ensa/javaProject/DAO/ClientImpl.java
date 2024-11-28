@@ -1,6 +1,7 @@
 package ma.ensa.javaProject.DAO;
 
 import ma.ensa.javaProject.Module.Client;
+import ma.ensa.javaProject.Module.Compte;
 import ma.ensa.javaProject.Utils.Utils;
 
 import java.sql.Connection;
@@ -23,7 +24,8 @@ public class ClientImpl implements ClientDAO{
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Client client = Client.build().Nom(resultSet.getString("nom"))
+                Client client = Client.build().Id(resultSet.getInt("id"))
+                        .Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
@@ -47,7 +49,7 @@ public class ClientImpl implements ClientDAO{
     }
 
     @Override
-    public Client findById(String id) {
+    public Client findById(String idUser){
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             return null;
@@ -55,10 +57,10 @@ public class ClientImpl implements ClientDAO{
         Client client;
         String Query = "SELECT * FROM client WHERE idUtilisateur=?;";
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
-            preparedStatement.setString(1,id);
+            preparedStatement.setString(1,idUser);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                return client = Client.build().Nom(resultSet.getString("nom"))
+                client = Client.build().Id(resultSet.getInt("id")).Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
@@ -68,10 +70,44 @@ public class ClientImpl implements ClientDAO{
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
                         .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
+                return client;
             }
 
 
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBConnection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Client findById(int id) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return null;
+        }
+        Client client;
+        String Query = "SELECT * FROM client WHERE idUtilisateur=?;";
+        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                client = Client.build().Nom(resultSet.getString("nom"))
+                        .Prenom(resultSet.getString("prenom"))
+                        .dateNaissance(resultSet.getDate("dateNaissance"))
+                        .Nationalite(resultSet.getString("nationalite"))
+                        .CIN(resultSet.getString("CIN"))
+                        .Addresse(resultSet.getString("addresse"))
+                        .NumMobile(resultSet.getString("numMobile"))
+                        .email(resultSet.getString("email"))
+                        .Password(resultSet.getString("password"))
+                        .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
+                client.setId(id);
+                return client;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -156,7 +192,22 @@ public class ClientImpl implements ClientDAO{
         }finally {
             DBConnection.close();
         }
-
     }
 
+    @Override
+    public void afficherCompteByClient(int id) {
+
+        CompteImpl compteImpl = new CompteImpl();
+        Client client = findById(id);
+        List<Compte> comptes = compteImpl.findById(id);
+
+        //afficher le client
+        System.out.println(client);
+        //afficher nos comptes
+        for (int i = 0; i < comptes.size(); i++) {
+
+            System.out.println(comptes.get(i));
+
+        }
+    }
 }

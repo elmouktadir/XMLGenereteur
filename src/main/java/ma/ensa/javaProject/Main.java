@@ -24,7 +24,9 @@ public class Main {
 //        boolean valide = Client.isPhoneNumber(phone);
 //        System.out.println(valide);
 
-        String mail = "m.elmouktadir@gmail.com";
-        EmailSender.emailSender(mail);
+//        String mail = "elmelssez@gmail.com";
+//        EmailSender.emailSender(mail);
+
+
     }
 }
