@@ -2,16 +2,35 @@ package ma.ensa.javaProject.Module;
 
 public class Beneficiaire {
     //RIB
+    private int id;
     private String numCompte;
     private String nom;
     private String prenom;
+    private int idVirement;
 
     public Beneficiaire(){}
 
-    public Beneficiaire(String numCompte, String nom, String prenom) {
+    public Beneficiaire(String numCompte, String nom, String prenom, int idVir) {
         this.numCompte = numCompte;
         this.nom = nom;
         this.prenom = prenom;
+        this.idVirement = idVir;
+    }
+
+    public Beneficiaire(int id,String numCompte, String nom, String prenom,int idVir) {
+        this.id = id;
+        this.numCompte = numCompte;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.idVirement = idVir;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNumCompte() {

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBConnection {
     private static final String  HOST = "localhost";
     private static final int  PORT = 8888;
-    private static final String  DB_NAME = "java_project";
+    private static final String  DB_NAME = "GestionVirement";
     private static final String  USERNAME = "root";
     private static final String  PASSWORD = "";
 

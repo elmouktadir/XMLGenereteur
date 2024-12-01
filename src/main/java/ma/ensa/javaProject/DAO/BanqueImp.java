@@ -77,7 +77,7 @@ public class BanqueImp implements BanqueDAO{
         if (conn == null) {
             return;
         }
-        String Query = "INSERT INTO banque (id,nom,addresse,swiftcode) VALUES (?,?,?,?);";
+        String Query = "INSERT INTO banque (id,nom,swiftcode,address) VALUES (?,?,?,?);";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 

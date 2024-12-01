@@ -16,11 +16,11 @@ public class Virement {
     private double amount;
     private String motif;
     private Compte emetteur;
-    private Compte destinataire;
+    private Beneficiaire destinataire;
 
     public Virement(){}
 
-    public Virement(Type type,Date date, double amount, String motif, Compte emetteur, Compte destinataire) {
+    public Virement(Type type,Date date, double amount, String motif, Compte emetteur, Beneficiaire destinataire) {
         this.type         = type;
         this.date         = date;
         this.amount       = amount;
@@ -85,11 +85,11 @@ public class Virement {
         this.emetteur = emetteur;
     }
 
-    public Compte getDestinataire() {
+    public Beneficiaire getDestinataire() {
         return destinataire;
     }
 
-    public void setDestinataire(Compte destinataire) {
+    public void setDestinataire(Beneficiaire destinataire) {
         this.destinataire = destinataire;
     }
 

@@ -142,10 +142,34 @@ public class Client {
         IdUtilisateur = idUtilisateur;
     }
 
+    public List<Compte> getComptes() {
+        return comptes;
+    }
+
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
+    }
+
     public static ClientBuilder build(){
         return new ClientBuilder();
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "Nom='" + Nom + '\'' +
+                ", Prenom='" + Prenom + '\'' +
+                ", dateNaissance=" + dateNaissance +
+                ", Nationalite='" + Nationalite + '\'' +
+                ", CIN='" + CIN + '\'' +
+                ", Addresse='" + Addresse + '\'' +
+                ", NumMobile='" + NumMobile + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", id=" + id +
+                ", IdUtilisateur='" + IdUtilisateur + '\'' +
+                '}';
+    }
 
     private String IdUser(){
 

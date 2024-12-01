@@ -1,13 +1,17 @@
 package ma.ensa.javaProject.Module;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Compte {
     private int id;
     private String  rib;
+    private String swiftcode;
     private double balance;
     private Client client;
     private Banque banque;
+    private List<Virement> virements;
 
     public Compte(){}
 
@@ -19,6 +23,7 @@ public class Compte {
         this.balance    = balance;
         this.client     = client;
         this.banque     = banque;
+        this.virements = new ArrayList<>();
     }
 
     //constructeur sans id
@@ -51,8 +56,24 @@ public class Compte {
         return rib;
     }
 
-    public void setIban(String rib) {
+    public void setIRib(String rib) {
         this.rib = rib;
+    }
+
+    public List<Virement> getVirements() {
+        return virements;
+    }
+
+    public void setVirements(List<Virement> virements) {
+        this.virements = virements;
+    }
+
+    public String getSwiftcode() {
+        return swiftcode;
+    }
+
+    public void setSwiftcode(String swiftcode) {
+        this.swiftcode = swiftcode;
     }
 
     public double getBalance() {
@@ -84,9 +105,7 @@ public class Compte {
         return "Compte{" +
                 "id=" + id +
                 ", RIB='" + rib + '\'' +
-                ", balance='" + balance + '\'' +
-                ", client=" + client +
-                ", banque=" + banque +
+                ", balance='" + balance + '\''+
                 '}';
     }
 

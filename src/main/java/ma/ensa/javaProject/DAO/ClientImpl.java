@@ -4,10 +4,7 @@ import ma.ensa.javaProject.Module.Client;
 import ma.ensa.javaProject.Module.Compte;
 import ma.ensa.javaProject.Utils.Utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class ClientImpl implements ClientDAO{
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
                         .CIN(resultSet.getString("CIN"))
-                        .Addresse(resultSet.getString("addresse"))
+                        .Addresse(resultSet.getString("address"))
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
@@ -65,7 +62,7 @@ public class ClientImpl implements ClientDAO{
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
                         .CIN(resultSet.getString("CIN"))
-                        .Addresse(resultSet.getString("addresse"))
+                        .Addresse(resultSet.getString("address"))
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
@@ -90,7 +87,7 @@ public class ClientImpl implements ClientDAO{
             return null;
         }
         Client client;
-        String Query = "SELECT * FROM client WHERE idUtilisateur=?;";
+        String Query = "SELECT * FROM client WHERE id=?;";
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -100,7 +97,7 @@ public class ClientImpl implements ClientDAO{
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
                         .CIN(resultSet.getString("CIN"))
-                        .Addresse(resultSet.getString("addresse"))
+                        .Addresse(resultSet.getString("address"))
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
@@ -135,34 +132,92 @@ public class ClientImpl implements ClientDAO{
     }
 
     @Override
+//    public void save(Client client) {
+//        Connection conn = DBConnection.getConnection();
+//        if (conn == null) {
+//            return;
+//        }
+//        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,address,numMobile,email,password,idUtilisateur)" +
+//                " VALUES (?,?,?,?,?,?,?,?,?,?);";
+//        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+//
+//            preparedStatement.setString(1,client.getNom());
+//            preparedStatement.setString(2,client.getPrenom());
+//            preparedStatement.setDate(3, Utils.getSqlDate(client.getDateNaissance()));
+//            preparedStatement.setString(4,client.getNationalite());
+//            preparedStatement.setString(5,client.getCIN());
+//            preparedStatement.setString(6,client.getAddresse());
+//            preparedStatement.setString(7,client.getNumMobile());
+//            preparedStatement.setString(8,client.getEmail());
+//            preparedStatement.setString(9,client.getPassword());
+//            preparedStatement.setString(10,client.getIdUtilisateur());
+//
+//            // Execute update
+//            int affectedRows = preparedStatement.executeUpdate();
+//
+//            // Check if a row was inserted and retrieve the generated key
+//            if (affectedRows > 0) {
+//                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+//                    if (generatedKeys.next()) {
+//                        client.setId(generatedKeys.getInt(1)); // Assuming the ID is an integer
+//                        System.out.println("Client ajouté avec succès. ID généré : " + client.getId());
+//                    }
+//                }
+//            } else {
+//                System.out.println("Échec de l'insertion du client.");
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }finally {
+//            DBConnection.close();
+//        }
+//    }
     public void save(Client client) {
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             return;
         }
-        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,addresse,numMobile,email,password,idUtilisateur)" +
+
+        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,address,numMobile,email,password,idUtilisateur)" +
                 " VALUES (?,?,?,?,?,?,?,?,?,?);";
-        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
-            preparedStatement.setString(1,client.getNom());
-            preparedStatement.setString(2,client.getPrenom());
+        try (PreparedStatement preparedStatement = conn.prepareStatement(Query, Statement.RETURN_GENERATED_KEYS)) {
+
+            // Set parameters
+            preparedStatement.setString(1, client.getNom());
+            preparedStatement.setString(2, client.getPrenom());
             preparedStatement.setDate(3, Utils.getSqlDate(client.getDateNaissance()));
-            preparedStatement.setString(4,client.getNationalite());
-            preparedStatement.setString(5,client.getCIN());
-            preparedStatement.setString(6,client.getAddresse());
-            preparedStatement.setString(7,client.getNumMobile());
-            preparedStatement.setString(8,client.getEmail());
-            preparedStatement.setString(9,client.getPassword());
-            preparedStatement.setString(10,client.getIdUtilisateur());
+            preparedStatement.setString(4, client.getNationalite());
+            preparedStatement.setString(5, client.getCIN());
+            preparedStatement.setString(6, client.getAddresse());
+            preparedStatement.setString(7, client.getNumMobile());
+            preparedStatement.setString(8, client.getEmail());
+            preparedStatement.setString(9, client.getPassword());
+            preparedStatement.setString(10, client.getIdUtilisateur());
 
-            preparedStatement.executeUpdate();
+            // Execute update
+            int affectedRows = preparedStatement.executeUpdate();
+
+            // Check if a row was inserted and retrieve the generated key
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        client.setId(generatedKeys.getInt(1)); // Assuming the ID is an integer
+                        System.out.println("Client ajouté avec succès. ID généré : " + client.getId());
+                    }
+                }
+            } else {
+                System.out.println("Échec de l'insertion du client.");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             DBConnection.close();
         }
     }
+
 
     @Override
     public void update(Client client) {
@@ -201,6 +256,7 @@ public class ClientImpl implements ClientDAO{
         Client client = findById(id);
         List<Compte> comptes = compteImpl.findById(id);
 
+        client.setComptes(comptes);
         //afficher le client
         System.out.println(client);
         //afficher nos comptes

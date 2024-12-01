@@ -52,10 +52,11 @@ public class CompteImpl implements CompteDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Compte compte = Compte.build()
-                        .Rib(resultSet.getString("iban"))
+                        .Rib(resultSet.getString("rib"))
+                        .SwiftCode(resultSet.getString("swiftCode"))
                         .Balance(resultSet.getDouble("balance"))
                         .build();
-                compte.getClient().setId(id);
+                //compte.getClient().setId(id);
                 comptes.add(compte);
             }
 
@@ -79,10 +80,11 @@ public class CompteImpl implements CompteDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Compte compte = Compte.build()
-                        .Rib(resultSet.getString("iban"))
+                        .Rib(resultSet.getString("rib"))
+                        .SwiftCode(resultSet.getString("swiftCode"))
                         .Balance(resultSet.getDouble("balance"))
                         .build();
-                compte.getBanque().setId(idBanque);
+                //compte.getBanque().setId(idBanque);
                 return compte;
             }
 
@@ -101,12 +103,13 @@ public class CompteImpl implements CompteDAO{
         if (conn == null) {
             return;
         }
-        String Query = "INSERT INTO compte (rib,iban,balance,idClient,idBanque) VALUES (?,?,?,?,?);";
+        String Query = "INSERT INTO compte (rib,swiftCode,balance,idClient,idBanque) VALUES (?,?,?,?,?);";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
             preparedStatement.setString(1,compte.getRib());
-            preparedStatement.setString(2,compte.getRib());
+            preparedStatement.setString(2,compte.getBanque().getSwiftCode());
+            //preparedStatement.setString(3,compte.getRib());
             preparedStatement.setDouble(3,compte.getBalance());
             preparedStatement.setInt(4,compte.getClient().getId());
             preparedStatement.setInt(5,compte.getBanque().getId());
@@ -164,12 +167,16 @@ public class CompteImpl implements CompteDAO{
     @Override
     public void compteParBanque(int id){
 
-        List<Compte> comptes = findById(id);
-        System.out.println(comptes.get(0));
+        Compte compte = selectById(id);
+        System.out.println(compte);
 
         BanqueImp banqueImp = new BanqueImp();
-        Banque banque = banqueImp.findById(comptes.get(0).getBanque().getId());
-        System.out.println(banque);
+
+//            Banque banque = banqueImp.findById(compte.getBanque().getId());
+            Banque banque = banqueImp.findById(id);
+            banque.addCompte(compte);
+            System.out.println(banque);
+
     }
 
 

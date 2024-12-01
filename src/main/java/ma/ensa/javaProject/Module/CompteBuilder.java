@@ -3,6 +3,7 @@ package ma.ensa.javaProject.Module;
 public class CompteBuilder {
     private int id;
     private String  rib;
+    private String swiftCode;
     private double balance;
     private Client client;
     private Banque banque;
@@ -14,6 +15,11 @@ public class CompteBuilder {
 
     public CompteBuilder Rib(String rib) {
         this.rib = rib;
+        return this;
+    }
+
+    public CompteBuilder SwiftCode(String swiftCode){
+        this.swiftCode = swiftCode;
         return this;
     }
 

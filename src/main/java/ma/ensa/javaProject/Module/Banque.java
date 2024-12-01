@@ -1,5 +1,6 @@
 package ma.ensa.javaProject.Module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Banque {
@@ -7,24 +8,22 @@ public class Banque {
     private String nom;
     private String swiftCode;
     private String address;
-    private List<Client> clients;
+    private List<Compte> comptes;
 
     public Banque(){}
-
-    public Banque(int id, String nom, String swiftCode, String address, List<Client> clients) {
-        this.id = id;
-        this.nom = nom;
-        this.swiftCode = swiftCode;
-        this.address = address;
-        this.clients = clients;
-    }
 
     public Banque(int id, String nom, String swiftCode, String address) {
         this.id = id;
         this.nom = nom;
         this.swiftCode = swiftCode;
         this.address = address;
+        this.comptes = new ArrayList<>();
+    }
 
+    public Banque(String nom, String swiftCode, String address) {
+        this.nom = nom;
+        this.swiftCode = swiftCode;
+        this.address = address;
     }
 
     //Getter et Setter
@@ -61,24 +60,24 @@ public class Banque {
         this.address = address;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public List<Compte> getComptes() {
+        return comptes;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
     }
 
     //Methode ajouter une client
-    public void addClient(Client client){
-        clients.add(client);
+    public void addCompte(Compte compte){
+        comptes.add(compte);
     }
 
     //la liste des comptes dans la banque
-    public Client getClientById(String id){
-        for (Client client : clients){
-            if (client.getIdUtilisateur() == id) {
-                return client;
+    public Compte getClientById(int id){
+        for (Compte compte : comptes){
+            if (compte.getId() == id) {
+                return compte;
             }
         }
         return null; // si le client n'existe pas

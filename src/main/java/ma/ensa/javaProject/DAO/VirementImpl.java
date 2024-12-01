@@ -1,5 +1,6 @@
 package ma.ensa.javaProject.DAO;
 
+import ma.ensa.javaProject.Module.Compte;
 import ma.ensa.javaProject.Module.Virement;
 import ma.ensa.javaProject.Utils.Utils;
 
@@ -76,6 +77,34 @@ public class VirementImpl implements VirementDAO{
 
         return null;
     }
+    @Override
+    public List<Virement> findByRib(String rib){
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return null;
+        }
+        List<Virement> virements = new ArrayList<>();
+        String Query = "SELECT * FROM virement WERE ribCompte=?;";
+        try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+            preparedStatement.setString(1,rib);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+
+                Virement virement =  Virement.build()
+                        .Id(resultSet.getInt("id"))
+                        .VirementType(Virement.Type.valueOf(resultSet.getString("type").toUpperCase()))
+                        .Date(resultSet.getDate("date"))
+                        .Amount(resultSet.getDouble("amount"))
+                        .Motif(resultSet.getString("motif"))
+                        .build();
+                virements.add(virement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return virements;
+    }
 
     @Override
     public void delete(int id) {
@@ -108,13 +137,14 @@ public class VirementImpl implements VirementDAO{
             return;
         }
 
-        String Query = "INSERT INTO virement (id,type,amount,date,motif) VALUES (?,?,?,?,?);";
+        String Query = "INSERT INTO virement (type,ribEmetteur,idBeneficiaire,dateVirement,montant,motif) VALUES (?,?,?,?,?,?);";
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
-            preparedStatement.setInt(1,virement.getId());
-            preparedStatement.setString(2,virement.getType().toString());
-            preparedStatement.setDouble(3,virement.getAmount());
-            preparedStatement.setDate(4,Utils.getSqlDate(virement.getDate()));
-            preparedStatement.setString(5,virement.getMotif());
+            preparedStatement.setString(1,virement.getType().toString());
+            preparedStatement.setString(2,virement.getEmetteur().getRib());
+            preparedStatement.setInt(3,virement.getDestinataire().getId());
+            preparedStatement.setDouble(4,virement.getAmount());
+            preparedStatement.setDate(5,Utils.getSqlDate(virement.getDate()));
+            preparedStatement.setString(6,virement.getMotif());
         }catch (SQLException se){
             se.printStackTrace();
         }finally{
@@ -128,18 +158,36 @@ public class VirementImpl implements VirementDAO{
         if (conn == null) {
             return;
         }
-        String Query = "UPDATE virement SET type=?,date=?,amount=?,motif=? where id=?;";
+        String Query = "UPDATE virement SET type=?,ribEmetteur=?,idBeneficiaire=?,dateVirement=?,montant=?,motif=? where id=?;";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
             preparedStatement.setString(1,virement.getType().toString());
-            preparedStatement.setDouble(2,virement.getAmount());
-            preparedStatement.setDate(3,Utils.getSqlDate(virement.getDate()));
-            preparedStatement.setString(4,virement.getMotif());
-            preparedStatement.setInt(5,virement.getId());
+            preparedStatement.setString(2,virement.getEmetteur().getRib());
+            preparedStatement.setInt(3,virement.getDestinataire().getId());
+            preparedStatement.setDouble(4,virement.getAmount());
+            preparedStatement.setDate(5,Utils.getSqlDate(virement.getDate()));
+            preparedStatement.setString(6,virement.getMotif());
         }catch (SQLException se){
             se.printStackTrace();
         }finally{
             DBConnection.close();
         }
+    }
+
+    @Override
+    public void virementCompte(){
+
+        CompteImpl compteImpl = new CompteImpl();
+        List<Compte> comptes = compteImpl.findById(6);
+
+        System.out.println(comptes.get(0));
+        List<Virement> virements = findByRib(comptes.get(0).getRib());
+        for (int i = 0; i < virements.size(); i++) {
+
+            System.out.println(virements.get(i));
+            System.out.println(virements.get(i).getDestinataire());
+
+        }
+
     }
 }
