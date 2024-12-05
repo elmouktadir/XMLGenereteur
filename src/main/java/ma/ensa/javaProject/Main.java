@@ -56,10 +56,12 @@ public class Main {
 //        System.out.println("----------------------------------------------------------------------------");
 //        compteimpl.compteParBanque(client1.getId());
 
-        Beneficiaire beneficiaire = new Beneficiaire("234566786544567788","haj","ISHAQ");
 
-        Virement virement = new Virement(Virement.Type.VIRCHAC,new Time(200044854),1000,"3a bghit",comptes.get(0),beneficiaire);
-        virImpl.save(virement);
+
+//        Beneficiaire beneficiaire = new Beneficiaire("234566786544567788","haj","ISHAQ");
+//
+//        Virement virement = new Virement(Virement.Type.VIRCHAC,new Time(200044854),1000,"3a bghit",comptes.get(0),beneficiaire);
+//        virImpl.save(virement);
 
     }
 }

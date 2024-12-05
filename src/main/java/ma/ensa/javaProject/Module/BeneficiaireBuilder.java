@@ -1,12 +1,21 @@
 package ma.ensa.javaProject.Module;
 
 public class BeneficiaireBuilder {
-    private String numCompte;
+
+    private int id;
+    private String iban;
+    private String BIC;
     private String nom;
     private String prenom;
+    private int idVirement;
 
-    public BeneficiaireBuilder NumCompte(String numCompte){
-      this.numCompte = numCompte;
+    public BeneficiaireBuilder Iban(String iban){
+      this.iban = iban;
+        return this;
+    }
+
+    public BeneficiaireBuilder Bic(String BIC){
+      this.BIC = BIC;
         return this;
     }
 
@@ -21,6 +30,6 @@ public class BeneficiaireBuilder {
     }
 
     public Beneficiaire build(){
-        return new Beneficiaire(numCompte,nom,prenom);
+        return new Beneficiaire(iban,BIC,nom,prenom);
     }
 }

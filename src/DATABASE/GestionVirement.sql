@@ -40,11 +40,12 @@ CREATE TABLE compte (
 -- Table Bénéficiaire
 CREATE TABLE beneficiaire (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    numCompte VARCHAR(28),
+    iban VARCHAR(28) NOt NULL,
+    BIC VARCHAR(28) NOT NULL,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
-    rib VARCHAR(24) NOT NULL, -- RIB si le bénéficiaire a un compte
-    FOREIGN KEY (rib) REFERENCES compte(rib)
+    idCompte INT NOT NULL, -- RIB si le bénéficiaire a un compte
+    FOREIGN KEY (id) REFERENCES compte(idCompte)
 );
 
 -- Table Virement

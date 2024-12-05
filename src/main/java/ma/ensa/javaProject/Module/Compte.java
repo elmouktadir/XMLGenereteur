@@ -11,6 +11,7 @@ public class Compte {
     private double balance;
     private Client client;
     private Banque banque;
+    private int idCompte;
     private List<Virement> virements;
 
     public Compte(){}

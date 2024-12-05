@@ -3,6 +3,7 @@ package ma.ensa.javaProject.Module;
 import java.util.Date;
 
 public class Virement {
+
     public enum Type{
         VIRINT,
         VIREST,
@@ -10,6 +11,7 @@ public class Virement {
         VIRMULTA,
         VIRMASS;
     }
+
     private int id;
     private Type type;
     private Date date;
@@ -17,16 +19,21 @@ public class Virement {
     private String motif;
     private Compte emetteur;
     private Beneficiaire destinataire;
+    private int Idclient;
+    private int Idbeneficiaire;
+
 
     public Virement(){}
 
     public Virement(Type type,Date date, double amount, String motif, Compte emetteur, Beneficiaire destinataire) {
+
         this.type         = type;
         this.date         = date;
         this.amount       = amount;
         this.motif        = motif;
-        this.emetteur     = emetteur;
-        this.destinataire = destinataire;
+        this.Idclient     = emetteur.getId();
+        this.Idbeneficiaire = destinataire.getId();
+
     }
 
     public Virement(int id,Type type,Date date, double amount, String motif) {
