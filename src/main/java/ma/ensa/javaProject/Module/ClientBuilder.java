@@ -6,14 +6,16 @@ public class ClientBuilder {
     private int id;
     private String Nom ;
     private String Prenom ;
-    private Date dateNaissance;
+    private Date dateNaissance ;
     private String Nationalite ;
-    private  String CIN; // final ?
-    private String Addresse;
-    private String NumMobile;
-    private String email;
-    private String password;
-    private  String IdUtilisateur;
+    private String CIN ; // final ?
+    private String Addresse ;
+    private String NumMobile ;
+    private String email ;
+    private String password ;
+    private String IdUtilisateur ; // final ?
+    private String iban ;
+    private String codeSwift ;
 
     public ClientBuilder(){}
 
@@ -71,8 +73,18 @@ public class ClientBuilder {
         return this;
     }
 
+    public ClientBuilder Iban(String iban){
+        this.iban = iban;
+        return this;
+    }
+
+    public ClientBuilder CodeSwift(String codeSwift){
+        this.codeSwift = codeSwift;
+        return this;
+    }
+
     public Client build(){
-        return new Client(id,Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email,password,IdUtilisateur);
+        return new Client(id,Nom,Prenom,dateNaissance,Nationalite,CIN,Addresse,NumMobile,email,password,IdUtilisateur,iban,codeSwift);
     }
 
 

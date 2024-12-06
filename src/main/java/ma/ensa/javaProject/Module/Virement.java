@@ -13,35 +13,37 @@ public class Virement {
     }
 
     private int id;
-    private Type type;
+    private Virement.Type type;
     private Date date;
     private double amount;
     private String motif;
-    private Compte emetteur;
+    private Client client;
     private Beneficiaire destinataire;
-    private int Idclient;
-    private int Idbeneficiaire;
+    private int idclient;
+    private int idbeneficiaire;
 
 
     public Virement(){}
 
-    public Virement(Type type,Date date, double amount, String motif, Compte emetteur, Beneficiaire destinataire) {
+    public Virement(Type type,Date date, double amount, String motif, Client client, Beneficiaire destinataire) {
 
         this.type         = type;
         this.date         = date;
         this.amount       = amount;
         this.motif        = motif;
-        this.Idclient     = emetteur.getId();
-        this.Idbeneficiaire = destinataire.getId();
+        this.idclient     = client.getId();
+        this.idbeneficiaire = destinataire.getId();
 
     }
 
-    public Virement(int id,Type type,Date date, double amount, String motif) {
-        this.id           = id;
-        this.type         = type;
-        this.date         = date;
-        this.amount       = amount;
-        this.motif        = motif;
+    public Virement(int id,Type type,Date date, double amount, String motif,int idclient, int idbeneficiaire) {
+        this.id             = id;
+        this.type           = type;
+        this.date           = date;
+        this.amount         = amount;
+        this.motif          = motif;
+        this.idclient       = idclient;
+        this.idbeneficiaire = idbeneficiaire;
     }
 
     public int getId() {
@@ -84,13 +86,6 @@ public class Virement {
         this.motif = motif;
     }
 
-    public Compte getEmetteur() {
-        return emetteur;
-    }
-
-    public void setEmetteur(Compte emetteur) {
-        this.emetteur = emetteur;
-    }
 
     public Beneficiaire getDestinataire() {
         return destinataire;
@@ -100,7 +95,44 @@ public class Virement {
         this.destinataire = destinataire;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public int getIdclient() {
+        return idclient;
+    }
+
+    public void setIdclient(int idclient) {
+        this.idclient = idclient;
+    }
+
+    public int getIdbeneficiaire() {
+        return idbeneficiaire;
+    }
+
+    public void setIdbeneficiaire(int idbeneficiaire) {
+        this.idbeneficiaire = idbeneficiaire;
+    }
+
     public static VirementBuilder build(){
         return new VirementBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return "Virement{" +
+                "id=" + id +
+                ", type=" + type +
+                ", date=" + date +
+                ", amount=" + amount +
+                ", motif='" + motif + '\'' +
+                ", idclient=" + idclient +
+                ", idbeneficiaire=" + idbeneficiaire +
+                '}';
     }
 }

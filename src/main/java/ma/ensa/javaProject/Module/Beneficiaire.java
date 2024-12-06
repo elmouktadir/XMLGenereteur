@@ -3,11 +3,11 @@ package ma.ensa.javaProject.Module;
 public class Beneficiaire {
 
     //RIB
+    private String nom;
+    private String prenom;
     private int id;
     private String iban;
     private String BIC;
-    private String nom;
-    private String prenom;
     private int idVirement;
 
     public Beneficiaire(){}

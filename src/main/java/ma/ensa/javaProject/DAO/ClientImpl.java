@@ -21,7 +21,8 @@ public class ClientImpl implements ClientDAO{
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Client client = Client.build().Id(resultSet.getInt("id"))
+                Client client = Client.build()
+                        .Id(resultSet.getInt("id"))
                         .Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .dateNaissance(resultSet.getDate("dateNaissance"))
@@ -31,7 +32,11 @@ public class ClientImpl implements ClientDAO{
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
-                        .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
+                        .IdUtilisateur(resultSet.getString("idUtilisateur"))
+                        .Iban("iban")
+                        .CodeSwift("codeSwift")
+                        .build();
+
                 clients.add(client);
             }
             return clients;
@@ -57,7 +62,9 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setString(1,idUser);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                client = Client.build().Id(resultSet.getInt("id")).Nom(resultSet.getString("nom"))
+                client = Client.build()
+                        .Id(resultSet.getInt("id"))
+                        .Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
@@ -66,7 +73,10 @@ public class ClientImpl implements ClientDAO{
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
-                        .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
+                        .IdUtilisateur(resultSet.getString("idUtilisateur"))
+                        .Iban("iban")
+                        .CodeSwift("codeSwift")
+                        .build();
                 return client;
             }
 
@@ -92,7 +102,8 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                client = Client.build().Nom(resultSet.getString("nom"))
+                client = Client.build()
+                        .Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .dateNaissance(resultSet.getDate("dateNaissance"))
                         .Nationalite(resultSet.getString("nationalite"))
@@ -101,7 +112,10 @@ public class ClientImpl implements ClientDAO{
                         .NumMobile(resultSet.getString("numMobile"))
                         .email(resultSet.getString("email"))
                         .Password(resultSet.getString("password"))
-                        .IdUtilisateur(resultSet.getString("idUtilisateur")).build();
+                        .IdUtilisateur(resultSet.getString("idUtilisateur"))
+                        .Iban("iban")
+                        .CodeSwift("codeSwift")
+                        .build();
                 client.setId(id);
                 return client;
             }
@@ -179,8 +193,8 @@ public class ClientImpl implements ClientDAO{
             return;
         }
 
-        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,address,numMobile,email,password,idUtilisateur)" +
-                " VALUES (?,?,?,?,?,?,?,?,?,?);";
+        String Query = "INSERT INTO client (nom,prenom,dateNaissance,nationalite,CIN,address,numMobile,email,password,idUtilisateur,iban,codeSift)" +
+                " VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try (PreparedStatement preparedStatement = conn.prepareStatement(Query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -194,7 +208,9 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setString(7, client.getNumMobile());
             preparedStatement.setString(8, client.getEmail());
             preparedStatement.setString(9, client.getPassword());
-            preparedStatement.setString(10, client.getIdUtilisateur());
+            preparedStatement.setString(10, client.getIban());
+            preparedStatement.setString(11, client.getCodeSwift());
+            preparedStatement.setString(12, client.getIdUtilisateur());
 
             // Execute update
             int affectedRows = preparedStatement.executeUpdate();
@@ -225,7 +241,7 @@ public class ClientImpl implements ClientDAO{
         if (conn == null) {
             return;
         }
-        String Query = "UPDATE client SET nom=?,prenom=?,dateNaissance=?,nationalite=?,CIN=?,addresse=?,numMobile=?,email=?,password=? WHERE idUtilisateur=?";
+        String Query = "UPDATE client SET nom=?,prenom=?,dateNaissance=?,nationalite=?,CIN=?,addresse=?,numMobile=?,email=?,password=?,iban=?,codeSwift=? WHERE idUtilisateur=?";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
 
@@ -238,7 +254,9 @@ public class ClientImpl implements ClientDAO{
             preparedStatement.setString(7,client.getNumMobile());
             preparedStatement.setString(8,client.getEmail());
             preparedStatement.setString(9,client.getPassword());
-            preparedStatement.setString(10,client.getIdUtilisateur());
+            preparedStatement.setString(10,client.getIban());
+            preparedStatement.setString(11,client.getCodeSwift());
+            preparedStatement.setString(12,client.getIdUtilisateur());
 
             preparedStatement.executeUpdate();
 

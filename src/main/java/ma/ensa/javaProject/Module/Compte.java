@@ -39,7 +39,7 @@ public class Compte {
     //Constructeur ne contient pas le client et la banque
     public Compte(int id, String rib, double balance) {
         this.id         = id;
-        this.rib       = rib;
+        this.rib        = rib;
         this.balance    = balance;
     }
 

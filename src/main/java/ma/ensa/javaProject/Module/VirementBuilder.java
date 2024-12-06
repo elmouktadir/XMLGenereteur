@@ -9,8 +9,10 @@ public class VirementBuilder {
     private Date date;
     private double amount;
     private String motif;
-    private Compte emetteur;
-    private Compte destinataire;
+    private Client client;
+    private Beneficiaire destinataire;
+    private int idclient;
+    private int idbeneficiaire;
 
     public VirementBuilder Id(int id){
         this.id = id;
@@ -38,6 +40,6 @@ public class VirementBuilder {
     }
 
     public  Virement build(){
-        return new Virement(id,type,date,amount,motif);
+        return new Virement(id,type,date,amount,motif,idclient,idbeneficiaire);
     }
 }

@@ -21,11 +21,13 @@ public class BeneficiaireImpl implements BeneficiaireDAO{
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
+
                 Beneficiaire bene = Beneficiaire.build()
                         .NumCompte(resultSet.getString("numCompte"))
                         .Nom(resultSet.getString("nom"))
                         .Prenom(resultSet.getString("prenom"))
                         .build();
+
                 beneficiaires.add(bene);
             }
         }catch (SQLException se){
@@ -73,6 +75,7 @@ public class BeneficiaireImpl implements BeneficiaireDAO{
         }
         String Query = "INSERT INTO beneficiaire (numCompte,nom,prenom) VALUES (?,?,?);";
         try(PreparedStatement preparedStatement = conn.prepareStatement(Query)){
+
             preparedStatement.setString(1,beneficiaire.getNumCompte());
             preparedStatement.setString(2,beneficiaire.getNom());
             preparedStatement.setString(3,beneficiaire.getPrenom());
