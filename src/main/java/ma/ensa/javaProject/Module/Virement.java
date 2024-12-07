@@ -16,6 +16,7 @@ public class Virement {
     private Virement.Type type;
     private Date date;
     private double amount;
+    private String devise ;
     private String motif;
     private Client client;
     private Beneficiaire destinataire;
@@ -23,23 +24,25 @@ public class Virement {
     private int idbeneficiaire;
 
 
-    public Virement(){}
+    public Virement() {}
 
-    public Virement(Type type,Date date, double amount, String motif, Client client, Beneficiaire destinataire) {
+    public Virement(Type type,Date date, double amount, String devise ,String motif, Client client, Beneficiaire destinataire) {
 
         this.type         = type;
         this.date         = date;
         this.amount       = amount;
+        this.devise       = devise;
         this.motif        = motif;
         this.idclient     = client.getId();
         this.idbeneficiaire = destinataire.getId();
 
     }
 
-    public Virement(int id,Type type,Date date, double amount, String motif,int idclient, int idbeneficiaire) {
+    public Virement(int id,Type type,Date date, double amount, String devise,String motif,int idclient, int idbeneficiaire) {
         this.id             = id;
         this.type           = type;
         this.date           = date;
+        this.devise         = devise;
         this.amount         = amount;
         this.motif          = motif;
         this.idclient       = idclient;
@@ -121,6 +124,14 @@ public class Virement {
 
     public static VirementBuilder build(){
         return new VirementBuilder();
+    }
+
+    public boolean sameCountry(){
+        return this.client.getIban().substring(0,1).equals(this.destinataire.getIban().substring(0,1));
+    }
+
+    public boolean sameBanque(){
+        return this.destinataire.getBIC().substring(0,3).equals(this.destinataire.getBIC().substring(0,3));
     }
 
     @Override
